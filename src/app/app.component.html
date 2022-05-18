@@ -11,15 +11,15 @@
     <!-- <div class="col-12"> -->
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">String</label>
-        <input type="email" class="form-control" (keyup)="changeValue(1, $event.target)" id="exampleFormControlInput1" placeholder="Value to be encrypted">
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Key</label>
-        <input type="email" class="form-control" (keyup)="changeValue(2, $event.target)" id="exampleFormControlInput1" placeholder="Using which string to be encrypted">
+        <input type="email" class="form-control" (keyup)="changeValue($event.target)" id="exampleFormControlInput1" placeholder="Value to be encrypted">
       </div>
       <div class="mb-3">
         <button (click)="encryptVariables()" class="btn btn-success btn-sm">Encrypt</button>
-        <!-- <button (click)="decryptVariables()" class="btn btn-success btn-sm">Decrypt</button> -->
+        <button (click)="decryptVariables()" style="margin-left: 20px;" class="btn btn-warning btn-sm">Decrypt</button>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Key</label>
+        <input type="email" readonly class="form-control" [value]="this.encryptionObj.output" id="exampleFormControlInput1" placeholder="Using which string to be encrypted">
       </div>
     <!-- </div>
   </div> -->

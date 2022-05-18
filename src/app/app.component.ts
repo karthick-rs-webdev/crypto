@@ -13,7 +13,8 @@ export class AppComponent {
   finalValue = '';
   encryptionObj = {
     string: '',
-    key: 'Password used to generate key' 
+    key: '9cb26f4e-1394-419e-814c-492896f16719',
+    output: ''
   }
 
   constructor() {}
@@ -21,42 +22,18 @@ export class AppComponent {
   ngOnInit() {}
 
   public encryptVariables = () => {
-    const key = this.encryptionObj.key
-    const iv = Buffer.alloc(16, 0)
-    
-    const cipher = CryptoJS.AES.encrypt(this.encryptionObj.string, CryptoJS.enc.Utf8.parse(key), {
-        iv: CryptoJS.enc.Utf8.parse(iv), // parse the IV 
-        padding: CryptoJS.pad.Pkcs7,
-        mode: CryptoJS.mode.CBC
-    })
-  
-    console.log(cipher.toString())
-    this.finalValue = cipher.toString()
-    alert(cipher.toString())
+    const cipher = CryptoJS.AES.encrypt(this.encryptionObj.string, this.encryptionObj.key).toString();
+    this.encryptionObj.output = cipher
   }
 
-  public changeValue(type: Number, value: any) {
-    if(type === 1) {
-      this.encryptionObj.string = value.value
-    } else {
-      this.encryptionObj.key = value.value
-    }
+  public changeValue(value: any) {
+    this.encryptionObj.string = value.value
   }
 
   public decryptVariables = () => {
-    const key = this.encryptionObj.key
-    const iv = Buffer.alloc(16, 0)
-    
-    const cipher = CryptoJS.AES.decrypt(this.encryptionObj.string, key, {
-        iv: CryptoJS.enc.Utf8.parse(iv), // parse the IV 
-        padding: CryptoJS.pad.Pkcs7,
-        mode: CryptoJS.mode.CBC
-    })
-    
-    // e.g. B6AeMHPHkEe7/KHsZ6TW/Q==
-    console.log(cipher.toString())
-    this.finalValue = cipher.toString()
-    alert(cipher.toString())
+    var bytes  = CryptoJS.AES.decrypt(this.encryptionObj.string,  this.encryptionObj.key);
+    var originalText = bytes.toString(CryptoJS.enc.Utf8);
+    this.encryptionObj.output = originalText
   }
 
 }
